@@ -1,4 +1,5 @@
 ﻿using API_Pokemon;
+using API_Pokemon.Model;
 using RestSharp;
 using System.Runtime.CompilerServices;
 
@@ -14,13 +15,15 @@ public class program
         {
             Console.WriteLine("Bem vindo ao sistema Pokemon, oque deseja fazer hoje:" +
                 "\n 1 - Adotar um Pokemon;" +
-                "\n 9 - Sair do Sistema");
+                "\n 9 - Sair do Sistema\n");
+
             opcao = Console.ReadLine();
 
             switch (opcao)
             {
                 case "1":
-                    Pokemon pokemon = new();
+                    Console.Clear();
+                    Pokemon pokemon = new Pokemon();
                     Console.WriteLine("Qual Pokemon deseja adotar:" +
                         "\n Bulbasaur;" +
                         "\n Squirtle" +
@@ -30,7 +33,7 @@ public class program
 
                     while (opcao != "3")
                     {
-                        Console.WriteLine($"1 - Saber mais sobre {escolhaPokemonUsuario}" +
+                        Console.WriteLine($"\n1 - Saber mais sobre {escolhaPokemonUsuario}" +
                             $"\n2 - Adotar {escolhaPokemonUsuario}" +
                             $"\n3 - Voltar\n");
 
@@ -39,6 +42,7 @@ public class program
                         switch (opcao2) {
 
                             case "1":
+                                Console.Clear();
                                 pokemon = buscarPokemon.BuscarPokemon(escolhaPokemonUsuario);
                                 Console.WriteLine($"Informações sobre {escolhaPokemonUsuario}");
                                 Console.WriteLine($"Nome do Pokemon: " + pokemon.name);
@@ -52,6 +56,21 @@ public class program
                                 }
                                 Console.WriteLine();
                                 break;
+
+                           case "2":
+                                pokemon = buscarPokemon.BuscarPokemon(escolhaPokemonUsuario);
+                                pokemonAdotado.Add(pokemon);
+                                Console.WriteLine("Pokemon adotado com sucesso");
+                                opcao = "3";
+                                break;
+
+                           case "3":
+                                opcao = "3";
+                                break;
+
+                            default:
+                                Console.WriteLine("Opcao invalida, tente novamente");
+                                break;
                         }
                     }
                     break;
@@ -61,12 +80,7 @@ public class program
                     break;
             }
 
-
-
         } while (opcao == "9");
-
-
-
 
     }
 

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API_Pokemon
+namespace API_Pokemon.Model
 {
-    public class Pokemon
+    public class Ability
     {
-
+        public string name { get; set; }
+        public string url { get; set; }
     }
 }
