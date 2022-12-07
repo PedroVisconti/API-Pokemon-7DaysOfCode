@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API_Pokemon_View
+namespace API_Pokemon.View
 {
-    public class View
+    public class pokemonView
     {
         private string name { get; set; }
 
-        public View()
+        public pokemonView()
         {
             boasVindas();
         }
@@ -30,7 +30,7 @@ namespace API_Pokemon_View
 ");
             Console.WriteLine("\nBoas vindas ao Sistema Pokemon");
             Console.WriteLine("Qual seu nome?\n");
-            this.name = Console.ReadLine().ToUpper();
+            name = Console.ReadLine().ToUpper();
         }
 
         public void menuPrincipal()

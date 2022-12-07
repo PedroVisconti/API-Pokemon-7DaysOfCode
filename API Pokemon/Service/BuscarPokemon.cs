@@ -7,19 +7,20 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace API_Pokemon
+namespace API_Pokemon.Service
 {
-    public class buscarPokemon {
+    public class buscarPokemon
+    {
         public static Pokemon BuscarPokemon(string nomePokemon)
         {
             var client = new RestClient($"https://pokeapi.co/api/v2/pokemon/{nomePokemon.ToLower()}");
 
-            var request = new RestRequest("",Method.Get);
+            var request = new RestRequest("", Method.Get);
 
             var response = client.Execute(request);
 
             return JsonSerializer.Deserialize<Pokemon>(response.Content);
         }
     }
-    
+
 }
