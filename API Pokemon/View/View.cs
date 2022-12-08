@@ -85,6 +85,107 @@ namespace API_Pokemon.View
             Console.WriteLine($"Parabens {name}, voce adotou um {pokemon.name}");
         }
 
+        public void detalhePokemonAdotado(Pokemon pokemon)
+        {
+            Console.Clear();
+            Console.WriteLine($"\n--------------------------- DETALHES {pokemon.name} ---------------------------\n");
+            Console.WriteLine("name Pokemon: " + pokemon.name.ToUpper());
+            Console.WriteLine("Altura: " + pokemon.height);
+            Console.WriteLine("Peso: " + pokemon.weight);
+
+            System.TimeSpan idade = DateTime.Now.Subtract(pokemon.dataNascimento);
+
+            Console.WriteLine("\nIdade: " + idade.Minutes + " Anos em Pokemon Virtual");
+
+            if (pokemon.verificarFome())
+            {
+                Console.WriteLine($"{pokemon.name.ToUpper()} Está com fome!");
+            }
+            else
+            {
+                Console.WriteLine($"{pokemon.name.ToUpper()} Está alimentado!");
+            }
+
+            if (pokemon.verificarHumor())
+            {
+                Console.WriteLine($"{pokemon.name.ToUpper()} Está feliz!");
+            }
+            else
+            {
+                Console.WriteLine($"{pokemon.name.ToUpper()} Está triste!");
+            }
+
+            Console.WriteLine("Habilidades: ");
+
+            foreach (Abilities habilidade in pokemon.abilities)
+            {
+                Console.Write(habilidade.ability.name.ToUpper() + " ");
+            }
+            Console.ReadLine();
+
+        }
+        public int menuConsultarMascotes(List<Pokemon> pokemons)
+        {
+            Console.Clear();
+            Console.WriteLine("\n--------------------------- CONSULTAR POKEMON ---------------------------\n");
+            Console.WriteLine($"Você possui {pokemons.Count} Pokemon adotados.");
+            for (int indicePokemon = 0; indicePokemon < pokemons.Count; indicePokemon++)
+            {
+                Console.WriteLine($"{indicePokemon} - {pokemons[indicePokemon].name.ToUpper()}");
+            }
+
+            Console.WriteLine($"Qual Pokemon você deseja interagir?");
+            return Convert.ToInt32(Console.ReadLine());
+        }
+
+        public string interagirComMascotes(Pokemon Pokemon)
+        {
+            Console.Clear();
+            Console.WriteLine("\n--------------------------- INTERAGIR COM POKEMON ---------------------------\n");
+            Console.WriteLine($"{name} VOCÊ DESEJA:");
+            Console.WriteLine($"1 - SABER COMO {Pokemon.name.ToUpper()} ESTÁ");
+            Console.WriteLine($"2 - ALIMENTAR O {Pokemon.name.ToUpper()}");
+            Console.WriteLine($"3 - BRINCAR COM {Pokemon.name.ToUpper()} ");
+            Console.WriteLine($"4 - VOLTAR");
+
+            return Console.ReadLine().ToUpper();
+        }
+
+        public void alimentarMascote()
+        {
+            Console.Clear();
+            Console.WriteLine("\n-------------------------------------------------------------");
+            Console.WriteLine($" (=^w^=)");
+            Console.WriteLine($"Pokemon Alimentado");
+            Console.ReadLine();
+        }
+
+        public void brincarMascote()
+        {
+            Console.Clear();
+            Console.WriteLine("\n-------------------------------------------------------------");
+            Console.WriteLine($"(=^w^=)");
+            Console.WriteLine($"Mascote mais feliz");
+            Console.ReadLine();
+        }
+
+        public void gameOver(Pokemon Pokemon)
+        {
+            Console.Clear();
+            Console.WriteLine("\n--------------------------- GAME OVER ---------------------------\n");
+            Console.WriteLine("O Mascote morreu de " + (Pokemon.humor > 0 ? "fome" : "tristeza"));
+
+            Console.WriteLine(@"
+              #####      #     #     #  #######      #######  #     #  #######  ######  
+             #     #    # #    ##   ##  #            #     #  #     #  #        #     # 
+             #         #   #   # # # #  #            #     #  #     #  #        #     # 
+             #  ####  #     #  #  #  #  #####        #     #  #     #  #####    ######  
+             #     #  #######  #     #  #            #     #   #   #   #        #   #   
+             #     #  #     #  #     #  #            #     #    # #    #        #    #  
+              #####   #     #  #     #  #######      #######     #     #######  #     # ");
+            Console.ReadLine();
+        }
+
     }
 
 }

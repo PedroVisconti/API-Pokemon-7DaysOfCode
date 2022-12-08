@@ -42,6 +42,7 @@ namespace API_Pokemon.Controller
                         break;
 
                     case "2":
+                        menuInteracao();
                         break;
 
                     case "9":
@@ -58,7 +59,7 @@ namespace API_Pokemon.Controller
             }
         }
 
-        public void adotarPokemon(string opcao)
+        private void adotarPokemon(string opcao)
         {
             Pokemon pokemon = new Pokemon();
             string escolhaPokemonUsuario = mensagens.escolherPokemon();
@@ -94,8 +95,50 @@ namespace API_Pokemon.Controller
             }
         }
 
+        private void menuInteracao()
+        {
+            string opcaoUsuario = "0";
+            int indiceMascote;
+
+
+            indiceMascote = mensagens.menuConsultarMascotes(pokemonsAdotados);
+
+            while(opcaoUsuario != "4")
+            {
+                opcaoUsuario = mensagens.interagirComMascotes(pokemonsAdotados[indiceMascote]);
+                switch (opcaoUsuario)
+                {
+                    case "1":
+                        mensagens.detalhePokemonAdotado(pokemonsAdotados[indiceMascote]);
+                        break;
+                    case "2":
+                        pokemonsAdotados [indiceMascote].alimentarPokemon();
+                        mensagens.alimentarMascote();
+
+                        if (!pokemonsAdotados[indiceMascote].saudePokemon())
+                            mensagens.gameOver(pokemonsAdotados[indiceMascote]);
+                        break;
+
+                    case "3":
+                        pokemonsAdotados[indiceMascote].brincarPokemon();
+                        mensagens.brincarMascote();
+                        if (!pokemonsAdotados[indiceMascote].saudePokemon())
+                        {
+                            mensagens.gameOver(pokemonsAdotados[indiceMascote]);
+                        }
+                        break;
+                    case "4":
+                        opcaoUsuario = "4";
+                        return;
+                    default:
+                        Console.WriteLine("Opção Inválida");
+                        break;
+                }
+
+            }
+        }
+
 
     }
 
 }
-
