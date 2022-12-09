@@ -1,6 +1,8 @@
 ﻿using API_Pokemon.Model;
+using API_Pokemon.Models;
 using API_Pokemon.Service;
 using API_Pokemon.View;
+using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace API_Pokemon.Controller
     public class controller
     {
         public string nome { get; set; }
-        private List<Pokemon> pokemonsAdotados { get; set; }
+        private List<Mascotes> pokemonsAdotados { get; set; }
         private pokemonView mensagens { get; set; }
+        private MascoteMapping Mapeador { get; set; }
+
 
         public controller()
         {
@@ -22,7 +26,7 @@ namespace API_Pokemon.Controller
         }
         public void controllerPokemon()
         {
-            this.pokemonsAdotados = new List<Pokemon>();
+            this.pokemonsAdotados = new List<Mascotes>();
             this.mensagens = new pokemonView();
         }
 
@@ -62,7 +66,10 @@ namespace API_Pokemon.Controller
         private void adotarPokemon(string opcao)
         {
             Pokemon pokemon = new Pokemon();
+            Mascotes mascote = new Mascotes();
+
             string escolhaPokemonUsuario = mensagens.escolherPokemon();
+
 
             while (opcao != "3")
             {
@@ -74,13 +81,24 @@ namespace API_Pokemon.Controller
 
                     case "1":
                         pokemon = buscarPokemon.BuscarPokemon(escolhaPokemonUsuario);
+
+                        var config = new MapperConfiguration(cfg => cfg.CreateMap<Pokemon, Mascotes>());
+                        var mapper = config.CreateMapper();
+                        mascote = mapper.Map<Pokemon, Mascotes>(pokemon);
+
                         mensagens.saberMaisPokemon(pokemon);
                         break;
 
                     case "2":
                         pokemon = buscarPokemon.BuscarPokemon(escolhaPokemonUsuario);
-                        pokemonsAdotados.Add(pokemon);
-                        mensagens.adotarPokemon(pokemon);
+
+                        var config2 = new MapperConfiguration(cfg => cfg.CreateMap<Pokemon, Mascotes>());
+                        var mapper2 = config2.CreateMapper();
+                        mascote = mapper2.Map<Pokemon, Mascotes>(pokemon);
+
+
+                        pokemonsAdotados.Add(mascote);
+                        mensagens.adotarPokemon(mascote);
                         opcao = "3";
                         break;
 

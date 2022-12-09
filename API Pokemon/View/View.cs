@@ -1,4 +1,5 @@
 ﻿using API_Pokemon.Model;
+using API_Pokemon.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,53 +79,54 @@ namespace API_Pokemon.View
             }
             Console.ReadLine();
         }
-        public void adotarPokemon(Pokemon pokemon)
+        public void adotarPokemon(Mascotes mascotes)
         {
             Console.Clear();
             Console.WriteLine("\n--------------------------- ADOTAR POKEMON ---------------------------\n");
-            Console.WriteLine($"Parabens {name}, voce adotou um {pokemon.name}");
+            Console.WriteLine($"Parabens {name}, voce adotou um {mascotes.name.ToUpper()}");
+            Console.ReadLine();
         }
 
-        public void detalhePokemonAdotado(Pokemon pokemon)
+        public void detalhePokemonAdotado(Mascotes mascotes)
         {
             Console.Clear();
-            Console.WriteLine($"\n--------------------------- DETALHES {pokemon.name} ---------------------------\n");
-            Console.WriteLine("name Pokemon: " + pokemon.name.ToUpper());
-            Console.WriteLine("Altura: " + pokemon.height);
-            Console.WriteLine("Peso: " + pokemon.weight);
+            Console.WriteLine($"\n--------------------------- DETALHES {mascotes.name} ---------------------------\n");
+            Console.WriteLine("name Pokemon: " + mascotes.name.ToUpper());
+            Console.WriteLine("Altura: " + mascotes.height);
+            Console.WriteLine("Peso: " + mascotes.weight);
 
-            System.TimeSpan idade = DateTime.Now.Subtract(pokemon.dataNascimento);
+            System.TimeSpan idade = DateTime.Now.Subtract(mascotes.dataNascimento);
 
             Console.WriteLine("\nIdade: " + idade.Minutes + " Anos em Pokemon Virtual");
 
-            if (pokemon.verificarFome())
+            if (mascotes.verificarFome())
             {
-                Console.WriteLine($"{pokemon.name.ToUpper()} Está com fome!");
+                Console.WriteLine($"{mascotes.name.ToUpper()} Está com fome!");
             }
             else
             {
-                Console.WriteLine($"{pokemon.name.ToUpper()} Está alimentado!");
+                Console.WriteLine($"{mascotes.name.ToUpper()} Está alimentado!");
             }
 
-            if (pokemon.verificarHumor())
+            if (mascotes.verificarHumor())
             {
-                Console.WriteLine($"{pokemon.name.ToUpper()} Está feliz!");
+                Console.WriteLine($"{mascotes.name.ToUpper()} Está feliz!");
             }
             else
             {
-                Console.WriteLine($"{pokemon.name.ToUpper()} Está triste!");
+                Console.WriteLine($"{mascotes.name.ToUpper()} Está triste!");
             }
 
             Console.WriteLine("Habilidades: ");
 
-            foreach (Abilities habilidade in pokemon.abilities)
+            foreach (Abilities habilidade in mascotes.abilities)
             {
                 Console.Write(habilidade.ability.name.ToUpper() + " ");
             }
             Console.ReadLine();
 
         }
-        public int menuConsultarMascotes(List<Pokemon> pokemons)
+        public int menuConsultarMascotes(List<Mascotes> pokemons)
         {
             Console.Clear();
             Console.WriteLine("\n--------------------------- CONSULTAR POKEMON ---------------------------\n");
@@ -138,14 +140,14 @@ namespace API_Pokemon.View
             return Convert.ToInt32(Console.ReadLine());
         }
 
-        public string interagirComMascotes(Pokemon Pokemon)
+        public string interagirComMascotes(Mascotes mascotes)
         {
             Console.Clear();
             Console.WriteLine("\n--------------------------- INTERAGIR COM POKEMON ---------------------------\n");
             Console.WriteLine($"{name} VOCÊ DESEJA:");
-            Console.WriteLine($"1 - SABER COMO {Pokemon.name.ToUpper()} ESTÁ");
-            Console.WriteLine($"2 - ALIMENTAR O {Pokemon.name.ToUpper()}");
-            Console.WriteLine($"3 - BRINCAR COM {Pokemon.name.ToUpper()} ");
+            Console.WriteLine($"1 - SABER COMO {mascotes.name.ToUpper()} ESTÁ");
+            Console.WriteLine($"2 - ALIMENTAR O {mascotes.name.ToUpper()}");
+            Console.WriteLine($"3 - BRINCAR COM {mascotes.name.ToUpper()} ");
             Console.WriteLine($"4 - VOLTAR");
 
             return Console.ReadLine().ToUpper();
@@ -169,11 +171,11 @@ namespace API_Pokemon.View
             Console.ReadLine();
         }
 
-        public void gameOver(Pokemon Pokemon)
+        public void gameOver(Mascotes mascotes)
         {
             Console.Clear();
             Console.WriteLine("\n--------------------------- GAME OVER ---------------------------\n");
-            Console.WriteLine("O Mascote morreu de " + (Pokemon.humor > 0 ? "fome" : "tristeza"));
+            Console.WriteLine("O Mascote morreu de " + (mascotes.humor > 0 ? "fome" : "tristeza"));
 
             Console.WriteLine(@"
               #####      #     #     #  #######      #######  #     #  #######  ######  
